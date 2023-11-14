@@ -1,5 +1,6 @@
-package com.model;
+package com.example.demo.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@DiscriminatorValue("F") 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

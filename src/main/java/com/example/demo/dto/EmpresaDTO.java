@@ -1,30 +1,25 @@
-package com.model;
+package com.example.demo.dto;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.example.demo.model.Funcionarios;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class Empresa{
-	@Id
-	private String cnpj;
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmpresaDTO {
+    private String cnpj;
 	private String nome;
 	private String endereço;
 	private String telefone;
 	private String email;
 	private byte[] foto;
 	private int quantidadeImoveis;
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
 	private List<Funcionarios> funcionarios;
 }

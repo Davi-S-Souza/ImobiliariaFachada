@@ -1,9 +1,10 @@
-package com.model;
+package com.example.demo.model;
 
 import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@DiscriminatorValue("P") 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -31,9 +33,8 @@ public class Proprietario extends Usuario{
 	private Date Data;
 	@OneToMany(mappedBy="proprietario")
 	private List<Imovel> imoveis;
-	
-	
-
+	@OneToMany(mappedBy = "proprietario")
+	private List<Avaliacao> avaliacoes;
 }
 
 
