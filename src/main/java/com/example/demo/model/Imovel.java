@@ -40,5 +40,7 @@ public class Imovel {
 	
 	
 	
-	
+	public void setProprietario(Proprietario proprietario) {
+		this.proprietario = proprietario;
+	  }
 }
