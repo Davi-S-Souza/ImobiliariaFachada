@@ -31,9 +31,6 @@ public class ServiceGeral {
     private ImovelRepository imovelRepository;
 
     @Autowired
-    private MensagemRepository mensagemRepository;
-
-    @Autowired
     private ProprietarioRepository proprietarioRepository;
 
     @Autowired

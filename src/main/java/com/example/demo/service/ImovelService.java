@@ -1,7 +1,9 @@
 
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,10 +11,14 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ImovelDTO;
 import com.example.demo.dto.ProprietarioDTO;
+import com.example.demo.exception.ResourceInternalServerException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Filtro;
+import com.example.demo.model.Imagens;
 import com.example.demo.model.Imovel;
 import com.example.demo.model.Proprietario;
 import com.example.demo.repository.EmpresaRepository;
@@ -46,7 +52,7 @@ public class ImovelService {
             return listaDeImoveisDTO;
             }
 
-              public List<ImovelDTO> ListarImovelPorProprietario(long proprietarioId){
+    public List<ImovelDTO> ListarImovelPorProprietario(long proprietarioId){
         List<Imovel> listaDeImoveis = imovelRepository.findById(proprietarioId);
         List<ImovelDTO> listaDeImoveisDTO = listaDeImoveis.stream()
             .map(i -> new ModelMapper().map(i, ImovelDTO.class))
@@ -55,7 +61,7 @@ public class ImovelService {
             }
 
             
-              public List<ImovelDTO> ListarImovelPorNome(String nome){
+    public List<ImovelDTO> ListarImovelPorNome(String nome){
         List<Imovel> listaDeImoveis = imovelRepository.findByName(proprietarioId);
         List<ImovelDTO> listaDeImoveisDTO = listaDeImoveis.stream()
             .map(i -> new ModelMapper().map(i, ImovelDTO.class))
@@ -64,7 +70,7 @@ public class ImovelService {
             }
 
             
-              public List<ImovelDTO> ListarImovelPorProprietario(Filtro filtro){
+    public List<ImovelDTO> ListarImovelPorProprietario(Filtro filtro){
         List<Imovel> listaDeImoveis = imovelRepository.findByFiltro(filtro);
         List<ImovelDTO> listaDeImoveisDTO = listaDeImoveis.stream()
             .map(i -> new ModelMapper().map(i, ImovelDTO.class))
@@ -87,10 +93,36 @@ public class ImovelService {
             if (optionalImovel.isPresent()) {
                 optionalImovel.setProprietario(optionalProprietario);
             }
+        }
     }
 
+    public ImovelDTO adicionarImagens(Long imovelId, MultipartFile[] files){
+        Imovel imovel = imovelRepository.findById(imovelId).orElseThrow(() -> new ResourceNotFoundException("Imovel não encontrado!"));
+        try {
+            List<Imagens> imagens = uploadImage(files);
+            List<Imagens> imagensJaExistentes = imovel.getImagens();
+            imagens.addAll(imagensJaExistentes);
+            imovel.setImagens(imagens);
+            imovelRepository.save(imovel);
+            ImovelDTO imovelDTO = new ModelMapper().map(imovel, ImovelDTO.class);
+            return imovelDTO;
+        } catch (Exception e) {
+            throw new ResourceInternalServerException("Ocorreu um erro no servidor!");
+        }
+    }
 
+     public List<Imagens> uploadImage(MultipartFile[] multipartFiles) throws IOException {
+        List<Imagens> imagens = new ArrayList<>();
 
+        for (MultipartFile file : multipartFiles) {
+            Imagens imagem = new Imagens(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes());
+            imagens.add(imagem);
+        }
+
+        return imagens;
     }
             
     }

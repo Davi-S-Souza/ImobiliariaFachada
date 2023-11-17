@@ -2,11 +2,8 @@ package com.example.demo.dto;
 
 import java.util.Date;
 import java.util.List;
-
 import com.example.demo.model.Avaliacao;
 import com.example.demo.model.Imovel;
-import com.example.demo.model.Mensagem;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +16,6 @@ import lombok.Setter;
 public class ProprietarioDTO {
     private String userId;
 	private String usuario;
-	private List<Mensagem> mensagensEnviadas;
-	private List<Mensagem> mensagensRecebidas;
 	private String email;
 	private String telefone;
 	private byte[] foto;

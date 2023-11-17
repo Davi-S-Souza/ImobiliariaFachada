@@ -33,5 +33,18 @@ public class FuncionariosService {
        funcionariosRepository.save(funcionarios);
        return funcionariosDTO;
     }
+
+    public FuncionariosDTO alterarFuncionarios(String funcionarioId, FuncionariosDTO funcionariosDTO){
+      Funcionarios funcionarios = funcionariosRepository.findById(funcionarioId).orElseThrow(()-> new ResourceNotFoundException("Funcionario não encontrado!"));
+      funcionarios = new ModelMapper().map(funcionariosDTO, Funcionarios.class);
+      funcionariosRepository.save(funcionarios);
+      return funcionariosDTO;
+    }
+
+    public void deletarFuncionario(String funcionarioId){
+      Funcionarios funcionario = funcionariosRepository.findById(funcionarioId).orElseThrow(() -> new ResourceNotFoundException("Funcionario não encontrado!"));
+      funcionario.setEmpresa(null);
+      funcionariosRepository.delete(funcionario);
+    }
             
     }

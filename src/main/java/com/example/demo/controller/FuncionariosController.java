@@ -21,6 +21,7 @@ import com.example.demo.dto.ImovelDTO;
 import com.example.demo.dto.ProprietarioDTO;
 import com.example.demo.model.Empresa;
 import com.example.demo.model.Filtro;
+import com.example.demo.model.Funcionarios;
 import com.example.demo.model.Proprietario;
 import com.example.demo.service.FuncionariosService;
 
@@ -52,6 +53,18 @@ public class FuncionariosController {
 	public ResponseEntity<EmpresaDTO> AdicionarFuncionarioParaEmpresa(@RequestBody EmpresaDTO empresa){
 		empresa = funcionariosService.AdicionarFuncionarioParaEmpresa();
 		return new ResponseEntity<>(empresa, HttpStatus.OK);
+	}
+
+	@PutMapping("/alterarFuncionario/{funcionarioId}")
+	public ResponseEntity<FuncionariosDTO> alterarFuncionarios(@PathVariable String funcionarioId, @RequestBody FuncionariosDTO funcionariosDTO){
+		funcionariosDTO = funcionariosService.alterarFuncionarios(funcionarioId, funcionariosDTO);
+		return new ResponseEntity<>(funcionariosDTO, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/deletarFuncionario/{funcionarioId}")
+	public ResponseEntity<?> deletarFuncionario(@PathVariable String funcionarioId){
+		funcionariosService.deletarFuncionario(funcionarioId);
+		return new ResponseEntity<>("Funcionario deletado com sucesso!", HttpStatus.OK);
 	}
 
 }

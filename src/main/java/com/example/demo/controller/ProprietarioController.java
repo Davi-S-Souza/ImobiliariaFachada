@@ -57,4 +57,6 @@ public class ProprietarioController {
 		ProprietarioDTO proprietario = serviceGeral.DetalharProprietario();
 		return new ResponseEntity<>(proprietario, HttpStatus.OK);
 	}
+
+	
 }

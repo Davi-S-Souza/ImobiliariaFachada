@@ -52,5 +52,17 @@ public class EmpresaController {
         empresaDTO = empresaService.alterarEmpresa(empresaDTO, empresaId);
 		return new ResponseEntity<>(empresaDTO, HttpStatus.OK);
     }
+
+	@PutMapping("/removerFuncionario/{empresaId}/{funcionarioId}")
+	public ResponseEntity<List<FuncionariosDTO>> removerFuncionario(@PathVariable String empresaId, @PathVariable String funcionarioId){
+		List<FuncionariosDTO> funcionarios = empresaService.removerFuncionario(empresaId, funcionarioId);
+		return new ResponseEntity<>(funcionarios, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/deletarEmpresa/{empresaId}")
+	public ResponseEntity<?> deletarEmpresa(@PathVariable String empresaId){
+		empresaService.deletarEmpresa(empresaId);
+		return new ResponseEntity<>("Empresa deletada com sucesso!", HttpStatus.OK);
+	}
 	
 }
