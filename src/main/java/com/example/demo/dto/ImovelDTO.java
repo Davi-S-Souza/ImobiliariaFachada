@@ -1,7 +1,9 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Proprietario;
+import java.util.List;
 
+import com.example.demo.model.Proprietario;
+import com.example.demo.model.Imagens;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class ImovelDTO {
 	private String Alocação;
 	private String Preço;
 	private String Iptu;
-	private byte[] Imagens;
+	private List<Imagens> Imagens;
 	private String Condominio;
 	private String Localizacao;
 	private String Mobiliado;
